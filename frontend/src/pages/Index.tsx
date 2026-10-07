@@ -1,6 +1,18 @@
 import React from 'react';
 
-const menuItems = [
+// --- INTERFACES ---
+export interface MenuItem {
+  name: string;
+  price: number;
+  medPrice: number;
+  largePrice: number;
+  desc: string;
+  image: string;
+  theme: 'primary' | 'secondary';
+}
+
+// --- DATOS ---
+const menuItems: MenuItem[] = [
   {
     name: "Jupichino Menta",
     price: 141,
@@ -57,7 +69,27 @@ const menuItems = [
   }
 ];
 
-const TopNavBar = () => (
+const scheduleItems = [
+  { day: 'Lunes', hours: '7:30 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Martes', hours: '7:30 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Miércoles', hours: '7:30 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Jueves', hours: '7:30 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Viernes', hours: '7:30 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Sábado', hours: '8:00 a.m. – 8:00 p.m.', isSunday: false },
+  { day: 'Domingo', hours: '10:00 a.m. – 6:00 p.m.', isSunday: true },
+];
+
+// --- COMPONENTES ---
+
+const AmbientBackdrop: React.FC = () => (
+  <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-primary-container/10 blur-[130px]"></div>
+    <div className="absolute top-[40%] right-[-10%] w-[550px] h-[550px] rounded-full bg-secondary-container/15 blur-[140px]"></div>
+    <div className="absolute bottom-10 left-[-5%] w-[500px] h-[500px] rounded-full bg-tertiary-container/10 blur-[120px]"></div>
+  </div>
+);
+
+const TopNavBar: React.FC = () => (
   <header className="bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-primary dark:text-primary docked full-width top-0 sticky z-50 border-b border-outline-variant/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
     <div className="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-20">
       <a className="flex items-center gap-3 group active:scale-95 transition-transform duration-150" href="#">
@@ -67,17 +99,17 @@ const TopNavBar = () => (
         <span className="font-headline-md text-headline-md tracking-tight text-primary dark:text-primary font-bold">Planeta Café</span>
       </a>
       <nav className="hidden md:flex items-center space-x-8">
-        <a className="font-label-lg text-label-lg text-primary dark:text-primary border-b-2 border-primary pb-1 font-semibold transition-all duration-200" href="#" target="_blank" rel="noopener noreferrer">Menú Galáctico</a>
+        <a className="font-label-lg text-label-lg text-primary dark:text-primary border-b-2 border-primary pb-1 font-semibold transition-all duration-200" href="#menu">Menú Galáctico</a>
         <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#experiencia">Laboratorio</a>
         <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#ubicacion">Ubicación</a>
-        <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#nosotros">Nosotros</a>
+       
       </nav>
       <div className="flex items-center gap-3">
         <a className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 bg-surface-container/60 hover:bg-surface-container-high text-primary hover:text-primary font-label-md text-label-md transition-all active:scale-95" href="https://wa.me/528139785447?text=Hola%20Planeta%20Café!%20Quiero%20hacer%20un%20pedido%20cósmico%20🚀" rel="noopener noreferrer" target="_blank">
           <span className="material-symbols-outlined text-[18px]">chat</span>
           <span>WhatsApp</span>
         </a>
-        <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary-container to-primary-container text-white font-label-md text-label-md shadow-[0_0_24px_-4px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_0px_rgba(219,39,119,0.6)] active:scale-95 transition-all duration-200" href="#" target="_blank" rel="noopener noreferrer">
+        <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary-container to-primary-container text-white font-label-md text-label-md shadow-[0_0_24px_-4px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_0px_rgba(219,39,119,0.6)] active:scale-95 transition-all duration-200" href="https://www.didi-food.com/es-MX/food/store/5764615546105236394/Planeta-Caf%C3%A9/?channel=10&cityId=52140500&lat=20.741819&lng=-103.385078&ddlCode=q9TJD0&area=MX&lang=es-MX&appKey=ds&dp_sub2=googlemap&redirectType=2&params=dp_sub1%3D5764615546105236394%26dp_sub2%3Dgooglemap%26dp_sub3%3Des-MX%26dp_sub4%3D10%26dp_sub5%3D52140500%26dp_sub6%3D20.741819%26dp_sub7%3D-103.385078" target="_blank" rel="noopener noreferrer">
           <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>shopping_bag</span>
           <span>Ordenar Ahora</span>
         </a>
@@ -86,7 +118,7 @@ const TopNavBar = () => (
   </header>
 );
 
-const HeroSection = () => (
+const HeroSection: React.FC = () => (
   <section className="relative pt-12 md:pt-20 pb-20 md:pb-28 overflow-hidden">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -131,7 +163,7 @@ const HeroSection = () => (
   </section>
 );
 
-const MenuItemCard = ({ item }) => {
+const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
   const isPrimary = item.theme === 'primary';
   const shadowColor = isPrimary ? 'rgba(76,215,246,0.35)' : 'rgba(219,39,119,0.35)';
   const hoverTextClass = isPrimary ? 'group-hover:text-primary' : 'group-hover:text-secondary';
@@ -167,21 +199,153 @@ const MenuItemCard = ({ item }) => {
   );
 };
 
-const AmbientBackdrop = () => (
-  <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-    <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-primary-container/10 blur-[130px]"></div>
-    <div className="absolute top-[40%] right-[-10%] w-[550px] h-[550px] rounded-full bg-secondary-container/15 blur-[140px]"></div>
-    <div className="absolute bottom-10 left-[-5%] w-[500px] h-[500px] rounded-full bg-tertiary-container/10 blur-[120px]"></div>
-  </div>
+const ExperienceSection: React.FC = () => (
+  <section className="py-20 md:py-28 relative overflow-hidden" id="experiencia">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-6 relative flex items-center justify-center py-6">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-primary/10 via-secondary/15 to-transparent rounded-3xl blur-[80px] pointer-events-none -z-10"></div>
+          <div className="relative w-full grid grid-cols-12 gap-4 items-center" style={{ perspective: '1200px' }}>
+            <div className="col-span-7 space-y-4 relative z-10">
+              <div className="group relative rounded-3xl overflow-hidden border border-secondary/40 bg-surface-container-high/60 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-secondary/60">
+                <div className="aspect-[4/5] overflow-hidden relative">
+                  <img alt="Galleta Zanahoria" className="w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1XZrzMA3h2y2SKugbjRl8xBb0cnOuiJkrDmvege1M_6sxJ-8qISIjvooJYHOgqwqj8q3cWrf3yKI3s5x4VividRVEhyUptmoCUWFtJhMxfaXVoPxD-Uns-3Hv1oKXSPz1Q0SqWB7FcKsZ_LJ28msRSPYc7o6-BSNpW8NvT9d_0kXiO7Z0_T60Vdv2B4-WbcwQ1cVAVr-PvbkPj2OdHtvzOmdzyP8BEazx1vQvDVvMDFJg" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-transparent to-transparent"></div>
+                </div>
+                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/30">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+                      <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px]">stars</span> Imperdibles
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-body-sm text-on-surface-variant line-through text-[12px]">MX$110</span>
+                      <span className="font-headline-sm text-headline-sm font-bold text-secondary">MX$49</span>
+                    </div>
+                  </div>
+                  <p className="font-headline-sm text-[16px] font-semibold text-on-surface mt-1">Galleta Zanahoria</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-5 relative -ml-10 z-30">
+              <div className="relative transition-transform duration-500 hover:scale-105" style={{ transform: 'rotate(3deg) translateY(-8px)' }}>
+                <div className="absolute -inset-4 rounded-3xl bg-secondary-container/30 blur-2xl -z-10"></div>
+                <div className="relative rounded-3xl p-2.5 bg-gradient-to-b from-secondary/40 via-surface-container-high to-primary/30 border border-secondary/50 shadow-[0_25px_50px_-12px_rgba(219,39,119,0.45)] backdrop-blur-xl">
+                  <div className="relative rounded-2xl overflow-visible">
+                    <div className="absolute -top-3 -right-3 z-30 px-3 py-1 rounded-full bg-secondary-container text-white font-label-sm text-label-sm font-bold shadow-[0_0_15px_rgba(219,39,119,0.7)] flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+                      <span>Estelar</span>
+                    </div>
+                    <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-surface-container-lowest">
+                      <img alt="Jupichino Gansito Mediano" className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1Uthn342aYIEOOckW5d4jHbpA3apaV_V3EURNy3XPsfXCXPHFGGCHgLllmZIlIZYeA4pfO22pbhUt244AKKf6VmRiPE0c9pyMamIUZo11rwBo9C0vG_wJKwbyXnzpq8Kwe-5zCq-MbudSNMJkgayVu_ni-ymI4vNjC4GYsS9v116veTA4kKxfG9ypKDHKszx0FNM8BZwjJaWihAz_U676wmy8G6-y1d8hmEw2hVcR85" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:col-span-6 space-y-6" id="nosotros">
+          <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface">
+            El punto de encuentro para astronautas urbanos, amantes del café y creadores de contenido
+          </h2>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Planeta Café nació en Guadalajara con una misión clara: redefinir la cultura cafetera fusionando la precisión científica del café de especialidad con una atmósfera sideral inmersiva. No servimos simples bebidas; curamos expediciones de sabor.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 );
 
-export default function PlanetaCafeApp() {
+const LocationSection: React.FC = () => (
+  <section className="py-20 bg-surface-container-lowest border-t border-outline-variant/20 relative" id="ubicacion">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface">
+          Aterriza en Nuestra Base en Guadalajara
+        </h2>
+        <p className="font-body-md text-body-md text-on-surface-variant">
+          Haz una parada en tu órbita diaria. Estamos ubicados en el corazón del corredor gastronómico más vibrante de Guadalajara.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="lg:col-span-7 rounded-3xl overflow-hidden border border-outline-variant/30 relative min-h-[380px] bg-surface-container-high group flex flex-col justify-end p-6">
+          <img 
+            className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700" 
+            alt="Mapa vista aérea estilo dark-mode con líneas neón en Guadalajara" 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmqkxLShPkwwPhAN9CZKWW1vwoic3TVQZUrrPfTF5TfYbE8Cj_BWxziVq6oIwRzP2J9G4SATTi0kXIqUBBEJ3tHoLCneo7YMEiGU0dBpuU6QPiU4XH3x35WfH-bb2ZIl7XOh9MW4h_rDQHPPC3UVdAdSSefONFc-TlIiPHBgg-DrNv03NeXYfEAH7rPt2qfr5uPB3ix9OYyKIm6hKiRBKxFVvSqeMeMILGBPGpSZ70" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/40 to-transparent"></div>
+          
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none">
+            <div className="relative flex items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-12 w-12 rounded-full bg-primary opacity-75"></span>
+              <div className="relative w-10 h-10 rounded-full bg-primary flex items-center justify-center text-surface-container-lowest shadow-[0_0_20px_#4cd7f6]">
+                <img alt="Planeta Café Pin" className="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBspyi5cgbjnXU7DC2TvtlTsVC2oPjUL-cbVxwvp8y7WVdQpPyo0m3FrNHMFo4qN9WH9LG59hgryXJDRmf4B2vI0NBAsaWC3kWPbafuNcGUeW-bJMbmNDf_RV6RRTUDuKvOAt_yrA1YUpO7rkG8QOvBPoGBLwcvb06wsF0lDVYc1_RKjEZAGaWyxhX5t86o4H04L7WJNHZUcCTniNULpY4AgoFtGkCajuJ13Rk2gEslh64olqcCmcTNnA" />
+              </div>
+            </div>
+            <span className="mt-2 px-3 py-1 rounded-full bg-surface-container-highest/90 border border-primary/50 text-primary font-label-sm text-label-sm font-bold shadow-lg">
+              PLANETA CAFÉ GDL
+            </span>
+          </div>
+
+          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-surface/90 border border-outline-variant/40 backdrop-blur-md">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary text-[28px]">explore</span>
+              <div>
+                <p className="font-label-md text-label-md text-on-surface font-semibold">Anillo Perif. Nte. Manuel Gómez Morín 221-LOCAL E 11 A</p>
+                <p className="font-body-sm text-body-sm text-on-surface-variant">San José del Bajío, 45150 Zapopan, Jal.</p>
+              </div>
+            </div>
+            <a className="px-5 py-2.5 rounded-full bg-primary hover:bg-primary-fixed text-on-primary font-label-md text-label-md font-bold transition-all active:scale-95 shadow-[0_0_15px_rgba(76,215,246,0.4)] flex items-center gap-2" href="https://maps.app.goo.gl/V61MvinB4mzC6Yyr8" rel="noopener noreferrer" target="_blank">
+              <span>Abrir en Google Maps</span>
+              <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 rounded-3xl bg-surface-container/70 border border-outline-variant/30 p-8 backdrop-blur-md flex flex-col justify-between space-y-6">
+          <div className="space-y-6">
+            <h3 className="font-headline-md text-headline-md font-bold text-on-surface flex items-center gap-2">
+              <span className="material-symbols-outlined text-secondary">schedule</span> Horarios de Vuelo
+            </h3>
+            <div className="space-y-2.5 pt-1">
+              {scheduleItems.map((item, index) => (
+                <div key={index} className={`flex justify-between items-center py-2 ${index !== scheduleItems.length - 1 ? 'border-b border-outline-variant/20' : ''}`}>
+                  <span className="font-body-md text-body-md text-on-surface font-medium">{item.day}</span>
+                  <span className={`font-label-md text-label-md font-bold ${item.isSunday ? 'text-secondary' : 'text-primary'}`}>
+                    {item.hours}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <a className="w-full py-3.5 rounded-full bg-gradient-to-r from-secondary-container to-primary-container text-white font-label-lg text-label-lg font-bold shadow-[0_0_24px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(219,39,119,0.5)] active:scale-95 transition-all text-center flex items-center justify-center gap-2" href="https://wa.me/528139785447?text=Hola!%20Deseo%20hacer%20un%20pedido%20para%20pasar%20a%20recoger%20🛸" rel="noopener noreferrer" target="_blank">
+            <span className="material-symbols-outlined text-[20px]">send</span>
+            <span>Mensaje Directo para Pick-up</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+
+// --- APP PRINCIPAL ---
+
+const PlanetaCafeApp: React.FC = () => {
   return (
     <div className="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-secondary-container selection:text-white dark">
       <AmbientBackdrop />
       <TopNavBar />
       <HeroSection />
 
+      {/* 1. SECCIÓN DE MENÚ */}
       <section className="py-12 border-t border-outline-variant/20 bg-surface-container-lowest" id="menu">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -200,66 +364,13 @@ export default function PlanetaCafeApp() {
         </div>
       </section>
 
-      {/* Secciones de Experiencia, Ubicación y Footer reducidas por brevedad pero completas en conversión */}
-      <section className="py-20 md:py-28 relative overflow-hidden" id="experiencia">
-         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 relative flex items-center justify-center py-6">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-primary/10 via-secondary/15 to-transparent rounded-3xl blur-[80px] pointer-events-none -z-10"></div>
-              <div className="relative w-full grid grid-cols-12 gap-4 items-center" style={{ perspective: '1200px' }}>
-                <div className="col-span-7 space-y-4 relative z-10">
-                  <div className="group relative rounded-3xl overflow-hidden border border-secondary/40 bg-surface-container-high/60 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-secondary/60">
-                    <div className="aspect-[4/5] overflow-hidden relative">
-                      <img alt="Galleta Zanahoria" className="w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1XZrzMA3h2y2SKugbjRl8xBb0cnOuiJkrDmvege1M_6sxJ-8qISIjvooJYHOgqwqj8q3cWrf3yKI3s5x4VividRVEhyUptmoCUWFtJhMxfaXVoPxD-Uns-3Hv1oKXSPz1Q0SqWB7FcKsZ_LJ28msRSPYc7o6-BSNpW8NvT9d_0kXiO7Z0_T60Vdv2B4-WbcwQ1cVAVr-PvbkPj2OdHtvzOmdzyP8BEazx1vQvDVvMDFJg" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-transparent to-transparent"></div>
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/30">
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-                          <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider flex items-center gap-1">
-                            <span className="material-symbols-outlined text-[14px]">stars</span> Imperdibles
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-body-sm text-on-surface-variant line-through text-[12px]">MX$110</span>
-                          <span className="font-headline-sm text-headline-sm font-bold text-secondary">MX$49</span>
-                        </div>
-                      </div>
-                      <p className="font-headline-sm text-[16px] font-semibold text-on-surface mt-1">Galleta Zanahoria</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-5 relative -ml-10 z-30">
-                  <div className="relative transition-transform duration-500 hover:scale-105" style={{ transform: 'rotate(3deg) translateY(-8px)' }}>
-                    <div className="absolute -inset-4 rounded-3xl bg-secondary-container/30 blur-2xl -z-10"></div>
-                    <div className="relative rounded-3xl p-2.5 bg-gradient-to-b from-secondary/40 via-surface-container-high to-primary/30 border border-secondary/50 shadow-[0_25px_50px_-12px_rgba(219,39,119,0.45)] backdrop-blur-xl">
-                      <div className="relative rounded-2xl overflow-visible">
-                        <div className="absolute -top-3 -right-3 z-30 px-3 py-1 rounded-full bg-secondary-container text-white font-label-sm text-label-sm font-bold shadow-[0_0_15px_rgba(219,39,119,0.7)] flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
-                          <span>Estelar</span>
-                        </div>
-                        <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-surface-container-lowest">
-                          <img alt="Jupichino Gansito Mediano" className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1Uthn342aYIEOOckW5d4jHbpA3apaV_V3EURNy3XPsfXCXPHFGGCHgLllmZIlIZYeA4pfO22pbhUt244AKKf6VmRiPE0c9pyMamIUZo11rwBo9C0vG_wJKwbyXnzpq8Kwe-5zCq-MbudSNMJkgayVu_ni-ymI4vNjC4GYsS9v116veTA4kKxfG9ypKDHKszx0FNM8BZwjJaWihAz_U676wmy8G6-y1d8hmEw2hVcR85" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-6 space-y-6" id="nosotros">
-              <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface">
-                El punto de encuentro para astronautas urbanos, amantes del café y creadores de contenido
-              </h2>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Planeta Café nació en Guadalajara con una misión clara: redefinir la cultura cafetera fusionando la precisión científica del café de especialidad con una atmósfera sideral inmersiva.
-              </p>
-            </div>
-          </div>
-         </div>
-      </section>
+      {/* 2. SECCIÓN DE EXPERIENCIA (Laboratorio) */}
+      <ExperienceSection />
 
+      {/* 3. SECCIÓN DE UBICACIÓN Y HORARIOS (Aterriza en nuestra base) */}
+      <LocationSection />
+
+      {/* BOTÓN FLOTANTE DE WHATSAPP */}
       <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
         <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-highest/90 border border-primary/40 text-on-surface shadow-2xl backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
@@ -270,10 +381,15 @@ export default function PlanetaCafeApp() {
         </a>
       </div>
 
+      {/* FOOTER */}
       <footer className="bg-surface-container-lowest border-t border-outline-variant/20">
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
             <span className="font-headline-md text-headline-md font-bold text-primary">Planeta Café</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-center">
+            <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200 hover:underline" href="#">Aviso de Privacidad</a>
+            <a className="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors duration-200 hover:underline" href="#">Términos Cósmicos</a>
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant text-center md:text-right">
             © 2025 Planeta Café. Todos los derechos reservados.
@@ -282,4 +398,6 @@ export default function PlanetaCafeApp() {
       </footer>
     </div>
   );
-}
+};
+
+export default PlanetaCafeApp;
