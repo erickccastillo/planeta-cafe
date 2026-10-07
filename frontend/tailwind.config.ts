@@ -1,92 +1,58 @@
-import type { Config } from "tailwindcss";
-
-export default {
-  darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  prefix: "",
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: "class",
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        "surface": "#131315",
+        "primary-fixed": "#acedff",
+        "surface-bright": "#39393b",
+        "on-surface": "#e5e1e4",
+        "on-surface-variant": "#bcc9cd",
+        "primary": "#4cd7f6",
+        "secondary": "#ffb1c7",
+        "background": "#131315",
+        "surface-container-highest": "#353437",
+        "surface-container-high": "#2a2a2c",
+        "surface-container": "#201f22",
+        "surface-container-low": "#1c1b1d",
+        "surface-container-lowest": "#0e0e10",
+        "primary-container": "#06b6d4",
+        "secondary-container": "#be0062",
+        "outline-variant": "#3d494c",
+        "on-primary": "#003640",
+        "tertiary-container": "#c78dff",
+        "tertiary": "#ddb7ff"
       },
-      backgroundImage: {
-        'gradient-hero': 'var(--gradient-hero)',
-        'gradient-card': 'var(--gradient-card)',
+      fontFamily: {
+        "body-md": ["Plus Jakarta Sans"],
+        "display": ["Space Grotesk"],
+        "headline-sm": ["Space Grotesk"],
+        "label-sm": ["Space Grotesk"],
+        "headline-md": ["Space Grotesk"],
+        "headline-lg": ["Space Grotesk"],
+        "body-sm": ["Plus Jakarta Sans"],
+        "body-lg": ["Plus Jakarta Sans"],
+        "label-md": ["Space Grotesk"],
+        "label-lg": ["Space Grotesk"],
       },
-      boxShadow: {
-        'card': 'var(--shadow-card)',
-        'card-hover': 'var(--shadow-hover)',
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-    },
+      fontSize: {
+        "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+        "display": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "700" }],
+        "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+        "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.06em", fontWeight: "500" }],
+        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "600" }],
+        "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+        "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "headline-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }],
+        "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+      }
+    }
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/container-queries')
+  ],
+}

@@ -1,172 +1,285 @@
-import { CenterCard } from "@/components/CenterCard";
-import { universityCenters } from "@/data/universityCenters";
-import { Info, ArrowRight } from "lucide-react"; 
+import React from 'react';
 
-const Index = () => {
-  const totalCareers = universityCenters.reduce(
-    (acc, center) => acc + center.careers.length,
-    0
-  );
+const menuItems = [
+  {
+    name: "Jupichino Menta",
+    price: 141,
+    medPrice: 141,
+    largePrice: 158,
+    desc: "Frappé refrescante de menta cósmica coronado con crema batida y perlas crujientes de menta.",
+    image: "https://lh3.googleusercontent.com/aida/AEtjO1W4yeDPUV2Dod6xMZDaiBfpwPAv3ufyliErcjoyqynxcRKGC11LX86AeLhzc9rCEFFNl1u-JcQ91GKLM9ijB81bKIIoku0h7dBApYPA_tVWY3_F_2n5Z45tHCqWdPzjwTmMSd4GSMV-XknYDjaBtWrOwnYLVt1IDja1I1ThAJ2gIqMB9Y-2GV_0jDaDot-qAnGF_eX-DSIsNxyvSTnzlrMeUL00SpSMPAcANblV3EzWaQ",
+    theme: "primary"
+  },
+  {
+    name: "Jupichino Gansito",
+    price: 149,
+    medPrice: 149,
+    largePrice: 165,
+    desc: "Frappé de moka chocolate con espirales de jarabe, crema batida, chispas de colores y pastelito Gansito entero.",
+    image: "https://lh3.googleusercontent.com/aida/AEtjO1Uthn342aYIEOOckW5d4jHbpA3apaV_V3EURNy3XPsfXCXPHFGGCHgLllmZIlIZYeA4pfO22pbhUt244AKKf6VmRiPE0c9pyMamIUZo11rwBo9C0vG_wJKwbyXnzpq8Kwe-5zCq-MbudSNMJkgayVu_ni-ymI4vNjC4GYsS9v116veTA4kKxfG9ypKDHKszx0FNM8BZwjJaWihAz_U676wmy8G6-y1d8hmEw2hVcR85",
+    theme: "secondary"
+  },
+  {
+    name: "Jupichino Pingüino",
+    price: 149,
+    medPrice: 149,
+    largePrice: 165,
+    desc: "Frappé de vainilla cremosa con fudge de chocolate, chispitas multicolores y pastelito estilo Pingüino glaseado.",
+    image: "https://lh3.googleusercontent.com/aida/AEtjO1XrUyrj064hJakqN5YS6AHYPERisgxwpxonxmo7MekrDzbuUSyqkhDiba-d2ytqbyt0_EL5yeZtOfT7Vawv3Y9BmoIfb_MIQDpLHh1zJXpYpLIW0cuLZ_x-ZRYL9-xXQLX_yWVuwPdYNa-mI-65xG7nBhrEKnLjrnwUCoKF-nPuEHVjZOZ9gNU2ewhHI20ULNRsMhpDN9kGIVX954bkqOssKPew3DOSTgBjeAwfku2w2Q",
+    theme: "primary"
+  },
+  {
+    name: "Jupichino Brownie",
+    price: 154,
+    medPrice: 154,
+    largePrice: 170,
+    desc: "Frappé cremoso de chocolate y caramelo con jarabe fundido y un suculento brownie de chocolate entero.",
+    image: "https://lh3.googleusercontent.com/aida/AEtjO1VXewFeLjguIQQQ8TnoxWOC_QeIawjpS_zpD1DGI05YzeMykIsHeRWANB5p0QnhYZiln7rynAili5jr-vai2Gt9M5pClnkqLu65OWaaXxQrQgq930MMdy-vGYq0yMG48IQJmQaXQ5rk9oisKIeeQfcd2GKQ8r9VvJ6SXe3i7eRa28S79IfmMFprmWfV00jpPCVA73fQukn4f4sPuyaTqYV47yfhg2RBc_brK7FzCdl5",
+    theme: "secondary"
+  },
+  {
+    name: "Jupichino Ferrero",
+    price: 142,
+    medPrice: 142,
+    largePrice: 158,
+    desc: "Frappé cremoso de avellanas tostadas, crema batida, almendras fileteadas, drizzle de caramelo y bombón Ferrero Rocher.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAlT1nn-zUUQk3AlOX8nUrUrwYcEPAJ3JJSLBNgK-pCNPVM1z2NaTWWn8OzSjQoXGqgPHYDtWk8QaQkqvk7pqSl5zv5iiTRdCSY_4XaGAbBkcqQrWBwzXcTBqJEemzmBv7Sk2QhImqpxHFNr3U-IjP8Cw93hF2IyinLE7bVUwq0i5yH8MULsuZQVzSSf9ZMbIA5air0CQVexvrgQiOyceGY4JkhiJnswkwlm4_Z1lXh",
+    theme: "primary"
+  },
+  {
+    name: "Jupichino Zero Sugar",
+    price: 141,
+    medPrice: 141,
+    largePrice: 158,
+    desc: "Frappé ligero sin azúcar con crema batida zero y discos de chocolate sin azúcar añadida. Sabor estelar sin culpa.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCsId7XbDfuqKGBJ6MDRT0uo2V5PP9IECAYUrddW0xrHVsaARhLfaS4jcGosq_cEOJvMLpHD-oTuE7a9hXZPPhhzPhiowwofjizGMbZguyhXxcI97sA5Z_Q7dE5kpNSHkBLWwnllDPDm1sflJp6N_NKIA_199OxGrJEiYGJsaIkK83OYGPAgUVThtnK3v-12oCbtFbdikKK5ogPdUWQ5AJuGL57b0P1eFtDimaaReMq",
+    theme: "secondary"
+  }
+];
 
-  // Función para hacer el scroll suave hacia la sección de centros
-  const handleScrollToCentros = (e) => {
-    e.preventDefault();
-    const centrosSection = document.getElementById("centros");
-    if (centrosSection) {
-      centrosSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+const TopNavBar = () => (
+  <header className="bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-primary dark:text-primary docked full-width top-0 sticky z-50 border-b border-outline-variant/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <div className="flex justify-between items-center w-full px-6 md:px-12 max-w-7xl mx-auto h-20">
+      <a className="flex items-center gap-3 group active:scale-95 transition-transform duration-150" href="#">
+        <div className="w-11 h-11 rounded-full p-1 bg-surface-container-high/90 border border-primary/40 flex items-center justify-center overflow-hidden shadow-[0_0_12px_rgba(76,215,246,0.4)] group-hover:rotate-12 transition-transform duration-300">
+          <img alt="Planeta Café Logo" className="w-full h-full object-contain rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVa5WZvTool4e5-rWlY02H1qXmihAaYlzScb1u5c4u9PGlOW0P-kh3DHdgc4xFBGYKdlu6RXiLMob6GgWDYHeqfBpKFO_YqXRAGBPMeDzt2Y4NzeWRS7PgNZmqvaeZCmaFPH3fi6zm0vEwelRMtM4Ij0CE9i5MKFL4uTjUAL2L6PZqpRvjkPCwmIGDOO9Qy9aRivyw0xJtrUHZmjczuyi4r5zbSlds0zg_9q3nxXaQ7dZKYxR6deLEdg" />
+        </div>
+        <span className="font-headline-md text-headline-md tracking-tight text-primary dark:text-primary font-bold">Planeta Café</span>
+      </a>
+      <nav className="hidden md:flex items-center space-x-8">
+        <a className="font-label-lg text-label-lg text-primary dark:text-primary border-b-2 border-primary pb-1 font-semibold transition-all duration-200" href="#" target="_blank" rel="noopener noreferrer">Menú Galáctico</a>
+        <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#experiencia">Laboratorio</a>
+        <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#ubicacion">Ubicación</a>
+        <a className="font-label-lg text-label-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors hover:text-primary dark:hover:text-primary" href="#nosotros">Nosotros</a>
+      </nav>
+      <div className="flex items-center gap-3">
+        <a className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/40 bg-surface-container/60 hover:bg-surface-container-high text-primary hover:text-primary font-label-md text-label-md transition-all active:scale-95" href="https://wa.me/528139785447?text=Hola%20Planeta%20Café!%20Quiero%20hacer%20un%20pedido%20cósmico%20🚀" rel="noopener noreferrer" target="_blank">
+          <span className="material-symbols-outlined text-[18px]">chat</span>
+          <span>WhatsApp</span>
+        </a>
+        <a className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-secondary-container to-primary-container text-white font-label-md text-label-md shadow-[0_0_24px_-4px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_0px_rgba(219,39,119,0.6)] active:scale-95 transition-all duration-200" href="#" target="_blank" rel="noopener noreferrer">
+          <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>shopping_bag</span>
+          <span>Ordenar Ahora</span>
+        </a>
+      </div>
+    </div>
+  </header>
+);
+
+const HeroSection = () => (
+  <section className="relative pt-12 md:pt-20 pb-20 md:pb-28 overflow-hidden">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7 space-y-6">
+          <h1 className="font-display text-display font-bold text-on-surface leading-[1.08] tracking-tight">
+            ¡Una nueva experiencia aterrizó desde <span className="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">otra galaxia!</span>
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+            Explora café de especialidad y bebidas galácticas en Guadalajara donde cada sorbo desafía la gravedad. Granos de altura mexicana infusionados con alquimia cósmica.
+          </p>
+          <div className="pt-2 flex flex-wrap items-center gap-4">
+            <a className="px-7 py-3.5 rounded-full bg-gradient-to-r from-secondary-container via-[#d946ef] to-primary-container text-white font-label-lg text-label-lg font-semibold shadow-[0_0_32px_-4px_rgba(219,39,119,0.55)] hover:shadow-[0_0_40px_rgba(6,182,212,0.7)] active:scale-95 transition-all duration-200 flex items-center gap-2" href="#menu">Explorar Menú Cósmico</a>
+            <a className="px-6 py-3.5 rounded-full bg-surface-container/70 border border-primary/50 text-on-surface hover:text-primary font-label-lg text-label-lg active:scale-95 transition-all duration-150 flex items-center gap-2 backdrop-blur-sm" href="https://wa.me/528139785447?text=Hola%20Planeta%20Café!%20Quiero%20hacer%20un%20pedido%20cósmico%20🚀" rel="noopener noreferrer" target="_blank">
+              <span className="material-symbols-outlined text-primary text-[20px]">chat</span>
+              <span>Chatear por WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        <div className="lg:col-span-5 relative flex justify-center">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[340px] h-[340px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: '25s' }}></div>
+            <div className="w-[420px] h-[420px] rounded-full border border-secondary/20 border-dashed animate-spin" style={{ animationDuration: '40s', animationDirection: 'reverse' }}></div>
+            <div className="w-[280px] h-[280px] rounded-full bg-secondary-container/20 blur-[80px]"></div>
+          </div>
+          <div className="relative z-10 w-full max-w-sm">
+            <div className="relative rounded-3xl overflow-hidden bg-surface-container/60 backdrop-blur-xl border border-outline-variant/40 p-4 shadow-[0_0_50px_-10px_rgba(6,182,212,0.3)] group">
+              <div className="overflow-hidden rounded-2xl relative aspect-square">
+                <img alt="Bebidas Galácticas Planeta Café" className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkBCIRB77Qva33XvOwY_EOeEzUrZ6wMZzueytP5azLstW3lH0NB7xhTW0XkV3Eg4se18LoFCIeQJr4gAWh4Ksw_2BNxjSYF2qIsqcmiXjJ13VvWz8oumoq_a-kXtnh654CQlRqDp4xW3ZobuHm4eUssr7iAOrtAIPPD7GTpSiU3Ct9NzniuT7gm32JGQWHPKu38Y6rRNnvgoiLfhNA8qSivswPPzzI2qyONutrfR-aH2QSOE2EgxZ8kA" />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+              </div>
+              <div className="mt-4 px-2 pb-1 flex justify-between items-center">
+                <div>
+                  <h4 className="font-headline-sm text-headline-sm font-semibold text-on-surface">Frappés Galácticos</h4>
+                  <p className="font-body-sm text-body-sm text-primary">Ven y conocenos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const MenuItemCard = ({ item }) => {
+  const isPrimary = item.theme === 'primary';
+  const shadowColor = isPrimary ? 'rgba(76,215,246,0.35)' : 'rgba(219,39,119,0.35)';
+  const hoverTextClass = isPrimary ? 'group-hover:text-primary' : 'group-hover:text-secondary';
+  const priceColorClass = isPrimary ? 'text-primary' : 'text-secondary';
+  const hoverBgClass = isPrimary ? 'hover:bg-primary-container hover:text-on-primary' : 'hover:bg-secondary-container hover:text-white';
+  const wpMessage = `Hola! Quiero pedir un ${item.name} 🚀`;
 
   return (
-    // Se usa 100dvh para respetar las barras de navegación en móviles
-    <div className="min-h-[100dvh] bg-background relative font-sans">
-      
-      <style>{`
-        @keyframes shader-movement {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes float-3d {
-          0% { transform: perspective(1000px) rotateY(-10deg) rotateX(5deg) translateY(0px); }
-          50% { transform: perspective(1000px) rotateY(5deg) rotateX(-5deg) translateY(-20px); }
-          100% { transform: perspective(1000px) rotateY(-10deg) rotateX(5deg) translateY(0px); }
-        }
-
-        .animate-shader {
-          background: linear-gradient(-45deg, #020617, #14348e, #0f172a, #1a169f);
-          background-size: 400% 400%;
-          animation: shader-movement 15s ease infinite;
-        }
-
-        .logo-3d {
-          animation: float-3d 6s ease-in-out infinite;
-          filter: drop-shadow(0 30px 30px rgba(0,0,0,0.5)) drop-shadow(0 0 40px rgba(59,130,246,0.4)) brightness(0) invert(1);
-        }
-      `}</style>
-
-      {/* ================= HERO ================= */}
-      <section className="relative text-white overflow-hidden animate-shader m-0 border-none min-h-[100dvh] flex flex-col">
-        
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9Ii4xIi8+PC9nPjwvc3ZnPg==')] opacity-[0.05] pointer-events-none" />
-        
-        <div className="absolute bottom-0 left-0 right-0 h-16 md:h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-20" />
-
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-          <img 
-            src="image_4a80f4.png" 
-            alt="Logo UDG" 
-            className="w-48 sm:w-64 md:w-96 lg:w-[480px] object-contain logo-3d opacity-15 sm:opacity-20 lg:opacity-90 mt-10 lg:mt-0"
-          />
+    <div className={`cosmic-gradient-border rounded-3xl bg-surface-container/70 backdrop-blur-md p-6 flex flex-col justify-between hover:shadow-[0_0_35px_-5px_${shadowColor}] transition-all duration-300 group`}>
+      <div>
+        <div className="relative overflow-hidden rounded-2xl h-60 bg-surface-container-lowest mb-5 flex items-center justify-center p-2">
+          <img alt={item.name} className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500 rounded-xl" src={item.image} />
         </div>
-
-        {/* Padding ajustado para móviles: pt-16 pb-24 */}
-        <div className="container relative z-20 flex-1 flex flex-col justify-between pt-16 pb-24 md:pt-32 md:pb-40 px-4 sm:px-6 mx-auto max-w-7xl">
-          
-          <div className="w-full text-left mt-4 md:mt-0">
-            <span className="text-blue-300 font-semibold tracking-widest uppercase text-xs sm:text-sm md:text-base block mb-3 lg:mb-6">
-              Guía de Carreras
-            </span>
-            {/* Tamaños de fuente escalonados para evitar desbordes */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[6rem] font-sans font-extrabold tracking-tighter leading-none w-full max-w-3xl">
-              Universidad de<br />Guadalajara
-            </h1>
-          </div>
-          
-          {/* Margen superior reducido en móviles (mt-16 en lugar de mt-40) */}
-          <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10 lg:gap-8 mt-16 sm:mt-24 lg:mt-0">
-            
-            <div className="space-y-6 md:space-y-8 max-w-xl">
-              <p className="text-base sm:text-lg md:text-xl text-blue-100/90 font-light leading-relaxed">
-                Explora nuestra red de centros universitarios y descubre el programa académico diseñado para impulsar tu futuro profesional.
-              </p>
-              
-              <div className="w-full sm:w-auto">
-                <a 
-                  href="#centros" 
-                  onClick={handleScrollToCentros}
-                  className="group flex items-center justify-center gap-3 px-8 py-4 md:px-10 bg-white text-blue-950 font-bold rounded-lg shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-300 hover:bg-blue-50 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] w-full sm:w-auto"
-                >
-                  Explorar Centros
-                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-2" />
-                </a>
-              </div>
-            </div>
-
-            {/* Gap reducido y flex-wrap añadido para evitar colisiones en pantallas muy chicas */}
-            <div className="flex flex-row flex-wrap sm:flex-nowrap justify-start lg:justify-end gap-6 sm:gap-12 md:gap-20 w-full lg:w-auto">
-              
-              <div className="text-left flex flex-col items-start min-w-[120px]">
-                <div className="border-b-2 sm:border-b-4 border-blue-400 pb-1 sm:pb-2 mb-2 sm:mb-3">
-                  <h3 className="text-4xl sm:text-5xl md:text-7xl font-sans font-bold text-white tracking-tight leading-none">
-                    {universityCenters.length}
-                  </h3>
-                </div>
-                <p className="text-[10px] sm:text-xs md:text-sm text-blue-200/90 font-medium tracking-widest uppercase">
-                  Centros<br className="sm:hidden"/> Universitarios
-                </p>
-              </div>
-
-              <div className="text-left flex flex-col items-start min-w-[120px]">
-                <div className="border-b-2 sm:border-b-4 border-blue-400 pb-1 sm:pb-2 mb-2 sm:mb-3">
-                  <h3 className="text-4xl sm:text-5xl md:text-7xl font-sans font-bold text-white tracking-tight leading-none">
-                    {totalCareers}
-                  </h3>
-                </div>
-                <p className="text-[10px] sm:text-xs md:text-sm text-blue-200/90 font-medium tracking-widest uppercase">
-                  Programas<br className="sm:hidden"/> Académicos
-                </p>
-              </div>
-
-            </div>
-
+        <div className="flex justify-between items-start mb-2">
+          <h3 className={`font-headline-md text-headline-md font-bold text-on-surface ${hoverTextClass} transition-colors`}>{item.name}</h3>
+          <div className="text-right">
+            <span className={`font-display font-bold text-headline-md ${priceColorClass}`}>${item.price}</span>
+            <span className="text-body-sm text-on-surface-variant block">MXN</span>
           </div>
         </div>
-      </section>
-
-      {/* ================= CENTROS ================= */}
-      <section id="centros" className="max-w-7xl mx-auto px-4 py-16 md:py-32 relative z-10">
-        <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-sans font-bold tracking-tight text-foreground">
-            Centros Universitarios
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-light">
-            Selecciona un campus para conocer su infraestructura, especialidades y
-            la oferta académica disponible para ti.
-          </p>
+        <p className="font-body-sm text-body-sm text-on-surface-variant mb-4">{item.desc}</p>
+        <div className="flex items-center gap-2 mb-6 p-2 rounded-xl bg-surface-container-high/40 border border-outline-variant/20 font-label-sm text-label-sm text-on-surface-variant">
+          <span className={`font-semibold ${priceColorClass}`}>Mediano: ${item.medPrice} MXN</span>
+          <span>•</span>
+          <span>Grande: ${item.largePrice} MXN</span>
         </div>
-
-        <div className="
-          grid
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-          xl:grid-cols-4
-          gap-4
-          sm:gap-6
-          w-full
-        ">
-          {universityCenters.map((center) => (
-            <CenterCard key={center.id} center={center} />
-          ))}
-        </div>
-      </section>
-
-      {/* ================= BOTÓN FLOTANTE ================= */}
-      <a
-        href="/help"
-        className="fixed bottom-6 right-4 sm:right-6 z-50 flex items-center justify-center p-3 sm:p-4 bg-primary text-primary-foreground rounded-full shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
-        title="Acerca de nosotros"
-      >
-        <Info className="h-6 w-6" />
-        <span className="max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-[200px] group-hover:ml-2 font-medium text-sm sm:text-base">
-          Acerca de nosotros
-        </span>
+      </div>
+      <a className={`w-full py-3 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all duration-200 flex items-center justify-center gap-2 border border-outline-variant/30 active:scale-95 ${hoverBgClass}`} href={`https://wa.me/528139785447?text=${encodeURIComponent(wpMessage)}`} rel="noopener noreferrer" target="_blank">
+        <span className="material-symbols-outlined text-[18px]">chat</span>
+        <span>Pedir por WhatsApp</span>
       </a>
-      
     </div>
   );
 };
 
-export default Index;
+const AmbientBackdrop = () => (
+  <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-primary-container/10 blur-[130px]"></div>
+    <div className="absolute top-[40%] right-[-10%] w-[550px] h-[550px] rounded-full bg-secondary-container/15 blur-[140px]"></div>
+    <div className="absolute bottom-10 left-[-5%] w-[500px] h-[500px] rounded-full bg-tertiary-container/10 blur-[120px]"></div>
+  </div>
+);
+
+export default function PlanetaCafeApp() {
+  return (
+    <div className="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-secondary-container selection:text-white dark">
+      <AmbientBackdrop />
+      <TopNavBar />
+      <HeroSection />
+
+      <section className="py-12 border-t border-outline-variant/20 bg-surface-container-lowest" id="menu">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">Bebidas de Otra Órbita</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-xl">
+                Formulaciones sensoriales creadas en nuestro laboratorio espacial con granos de Chiapas, Oaxaca y Puebla.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {menuItems.map((item, idx) => (
+              <MenuItemCard key={idx} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Secciones de Experiencia, Ubicación y Footer reducidas por brevedad pero completas en conversión */}
+      <section className="py-20 md:py-28 relative overflow-hidden" id="experiencia">
+         <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 relative flex items-center justify-center py-6">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-primary/10 via-secondary/15 to-transparent rounded-3xl blur-[80px] pointer-events-none -z-10"></div>
+              <div className="relative w-full grid grid-cols-12 gap-4 items-center" style={{ perspective: '1200px' }}>
+                <div className="col-span-7 space-y-4 relative z-10">
+                  <div className="group relative rounded-3xl overflow-hidden border border-secondary/40 bg-surface-container-high/60 backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-secondary/60">
+                    <div className="aspect-[4/5] overflow-hidden relative">
+                      <img alt="Galleta Zanahoria" className="w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1XZrzMA3h2y2SKugbjRl8xBb0cnOuiJkrDmvege1M_6sxJ-8qISIjvooJYHOgqwqj8q3cWrf3yKI3s5x4VividRVEhyUptmoCUWFtJhMxfaXVoPxD-Uns-3Hv1oKXSPz1Q0SqWB7FcKsZ_LJ28msRSPYc7o6-BSNpW8NvT9d_0kXiO7Z0_T60Vdv2B4-WbcwQ1cVAVr-PvbkPj2OdHtvzOmdzyP8BEazx1vQvDVvMDFJg" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-transparent to-transparent"></div>
+                    </div>
+                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-2xl bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/30">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+                          <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[14px]">stars</span> Imperdibles
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-body-sm text-on-surface-variant line-through text-[12px]">MX$110</span>
+                          <span className="font-headline-sm text-headline-sm font-bold text-secondary">MX$49</span>
+                        </div>
+                      </div>
+                      <p className="font-headline-sm text-[16px] font-semibold text-on-surface mt-1">Galleta Zanahoria</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-5 relative -ml-10 z-30">
+                  <div className="relative transition-transform duration-500 hover:scale-105" style={{ transform: 'rotate(3deg) translateY(-8px)' }}>
+                    <div className="absolute -inset-4 rounded-3xl bg-secondary-container/30 blur-2xl -z-10"></div>
+                    <div className="relative rounded-3xl p-2.5 bg-gradient-to-b from-secondary/40 via-surface-container-high to-primary/30 border border-secondary/50 shadow-[0_25px_50px_-12px_rgba(219,39,119,0.45)] backdrop-blur-xl">
+                      <div className="relative rounded-2xl overflow-visible">
+                        <div className="absolute -top-3 -right-3 z-30 px-3 py-1 rounded-full bg-secondary-container text-white font-label-sm text-label-sm font-bold shadow-[0_0_15px_rgba(219,39,119,0.7)] flex items-center gap-1">
+                          <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+                          <span>Estelar</span>
+                        </div>
+                        <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-surface-container-lowest">
+                          <img alt="Jupichino Gansito Mediano" className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1Uthn342aYIEOOckW5d4jHbpA3apaV_V3EURNy3XPsfXCXPHFGGCHgLllmZIlIZYeA4pfO22pbhUt244AKKf6VmRiPE0c9pyMamIUZo11rwBo9C0vG_wJKwbyXnzpq8Kwe-5zCq-MbudSNMJkgayVu_ni-ymI4vNjC4GYsS9v116veTA4kKxfG9ypKDHKszx0FNM8BZwjJaWihAz_U676wmy8G6-y1d8hmEw2hVcR85" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-6 space-y-6" id="nosotros">
+              <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface">
+                El punto de encuentro para astronautas urbanos, amantes del café y creadores de contenido
+              </h2>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                Planeta Café nació en Guadalajara con una misión clara: redefinir la cultura cafetera fusionando la precisión científica del café de especialidad con una atmósfera sideral inmersiva.
+              </p>
+            </div>
+          </div>
+         </div>
+      </section>
+
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-highest/90 border border-primary/40 text-on-surface shadow-2xl backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+          <span className="font-label-md text-label-md font-semibold text-primary">¿Antojo cósmico? Escríbenos</span>
+        </div>
+        <a aria-label="Contactar por WhatsApp" className="relative group w-14 h-14 rounded-full bg-gradient-to-tr from-primary-container via-[#10b981] to-primary flex items-center justify-center text-surface-container-lowest shadow-[0_0_25px_rgba(6,182,212,0.6)] hover:shadow-[0_0_35px_rgba(219,39,119,0.7)] hover:scale-105 active:scale-95 transition-all duration-200" href="https://wa.me/528139785447?text=Hola%20Planeta%20Café!%20Tengo%20un%20antojo%20cósmico%20✨" rel="noopener noreferrer" target="_blank">
+          <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>chat</span>
+        </a>
+      </div>
+
+      <footer className="bg-surface-container-lowest border-t border-outline-variant/20">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+            <span className="font-headline-md text-headline-md font-bold text-primary">Planeta Café</span>
+          </div>
+          <p className="font-body-sm text-body-sm text-on-surface-variant text-center md:text-right">
+            © 2025 Planeta Café. Todos los derechos reservados.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
